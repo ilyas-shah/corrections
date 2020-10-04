@@ -8,6 +8,8 @@ Vue.component("correction-view", {
       originalHadith: null,
       queueName: this.queue,
       diff: null,
+      hasCheckedComment: false,
+      reviewComment: '',
     };
   },
   created: function () {
@@ -131,7 +133,10 @@ Vue.component("correction-view", {
       catch (err) {
         this.errors.push(err.message);
       }
-    }
+    },
+    toggleCommentBox: function () {
+      this.hasCheckedComment = !this.hasCheckedComment;
+    },
   },
 });
 
