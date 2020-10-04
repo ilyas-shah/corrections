@@ -110,11 +110,15 @@ Vue.component("correction-view", {
       this.loadNextCorrection();
     },
     accept: function() {
+      console.log(this.reviewComment)
       this.execAction('approve', {
-      corrected_value: this.correction.val
+      corrected_value: this.correction.val,
+      comment: this.reviewComment ? this.reviewComment : null,
     })},      
     reject: function() { 
-      this.execAction('reject');
+      this.execAction('reject', {
+        comment: this.reviewComment ? this.reviewComment : null,
+      });
     },
     skip: function() {
       this.execAction('skip');
