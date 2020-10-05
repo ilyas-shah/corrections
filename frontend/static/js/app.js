@@ -8,8 +8,8 @@ Vue.component("correction-view", {
       originalHadith: null,
       queueName: this.queue,
       diff: null,
-      hasCheckedComment: false,
-      reviewComment: '',
+      checked: false,
+      comment: '',
     };
   },
   created: function () {
@@ -33,6 +33,8 @@ Vue.component("correction-view", {
   },
   methods: {
     reset: function () {
+      this.comment = null;
+      this.checked = false;
       this.errors = [];
       this.correction = null;
       this.loading = false;
@@ -110,14 +112,13 @@ Vue.component("correction-view", {
       this.loadNextCorrection();
     },
     accept: function() {
-      console.log(this.reviewComment)
       this.execAction('approve', {
       corrected_value: this.correction.val,
-      comment: this.reviewComment ? this.reviewComment : null,
+      comment: this.comment,
     })},      
-    reject: function() { 
+    reject: function() {
       this.execAction('reject', {
-        comment: this.reviewComment ? this.reviewComment : null,
+        comment: this.comment,
       });
     },
     skip: function() {
@@ -138,9 +139,9 @@ Vue.component("correction-view", {
         this.errors.push(err.message);
       }
     },
-    toggleCommentBox: function () {
-      this.hasCheckedComment = !this.hasCheckedComment;
-    },
+    isChecked: function () {
+      this.comment = this.checked ? this.comment : null;
+    }
   },
 });
 
